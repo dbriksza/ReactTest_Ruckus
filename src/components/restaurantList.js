@@ -6,9 +6,11 @@ import RestaurantCard from "./restaurantCard";
 import SearchBar from "./searchBar";
 
 const RestaurantList = () => {
+  //states for populating restaurants list
   const [restaurants, setRestaurants] = useState([]);
   const [ready, setReady] = useState(false);
   const idArr = [
+    //list of random (working) restaurant id's since I couldn't get other endpoints working
     10000011,
     10000012,
     10000013,
@@ -22,6 +24,7 @@ const RestaurantList = () => {
   const [tags, setTags] = useState(false);
 
   const filterRestaurants = (restaurants, query) => {
+    //search feature with togglable tag filter
     if (!query) {
       return restaurants;
     }
@@ -38,6 +41,7 @@ const RestaurantList = () => {
     });
   };
 
+  //states for handling search
   const query = "";
   const [searchQuery, setSearchQuery] = useState(query || "");
   const filteredRestaurants = filterRestaurants(restaurants, searchQuery);
@@ -50,6 +54,7 @@ const RestaurantList = () => {
     idArr.forEach((id) =>
       axios
         .get(`https://developers.zomato.com/api/v2.1/restaurant?res_id=${id}`, {
+          //no documentation could only get this one edpoint working
           headers: {
             "user-key": "7749b19667964b87a3efc739e254ada2",
           },

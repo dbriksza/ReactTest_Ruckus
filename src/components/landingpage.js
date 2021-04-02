@@ -3,7 +3,7 @@ import React from "react";
 const LandingPage = () => {
   return (
     <div className="landingPage">
-      <h1>Welcome to whatever this is...</h1>
+      <h1>Zomato clone</h1>
     </div>
   );
 };
