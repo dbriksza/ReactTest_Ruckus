@@ -50,8 +50,11 @@ const RestaurantList = () => {
               <div>
                 <RestaurantCard
                   title={restaurant.name}
-                  //   image_url={restaurant.photos}
+                  phone_numbers={restaurant.phone_numbers}
+                  location={restaurant.location}
+                  menu={restaurant.menu_url}
                   description={restaurant.cuisines}
+                  url={restaurant.url}
                 />
               </div>
             )

@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.card {
+  background-color: coral;
+  border-radius: 13px;
+  width: 400px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resPage {
+  background-color: antiquewhite;
+  border-radius: 13px;
+  width: 400px;
+}
