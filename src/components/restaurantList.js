@@ -19,10 +19,17 @@ const RestaurantList = () => {
     10000018,
     10000019,
   ];
+  const [tags, setTags] = useState(false);
 
   const filterRestaurants = (restaurants, query) => {
     if (!query) {
       return restaurants;
+    }
+    if (tags) {
+      return restaurants.filter((restaurants) => {
+        const restaurantsDesc = restaurants.cuisines.toLowerCase();
+        return restaurantsDesc.includes(query.toLowerCase());
+      });
     }
 
     return restaurants.filter((restaurants) => {
@@ -34,6 +41,10 @@ const RestaurantList = () => {
   const query = "";
   const [searchQuery, setSearchQuery] = useState(query || "");
   const filteredRestaurants = filterRestaurants(restaurants, searchQuery);
+
+  const onValueChange = () => {
+    setTags(!tags);
+  };
 
   useEffect(() => {
     idArr.forEach((id) =>
@@ -62,6 +73,15 @@ const RestaurantList = () => {
     <div className="list">
       <h2 className="listTitle">An Arbitrary List of Restaurants</h2>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <div className="tags">
+        <input
+          type="checkbox"
+          id="tags"
+          value="tags"
+          onChange={() => onValueChange()}
+        />{" "}
+        <p>include tags</p>
+      </div>
       <div className="restaurants">
         {ready &&
           filteredRestaurants.map(
