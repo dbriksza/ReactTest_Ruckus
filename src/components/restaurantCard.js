@@ -1,11 +1,11 @@
 import React from "react";
 
-const RestaurantCard = (props) => {
+const RestaurantCard = (restaurant) => {
   return (
-    <div className="card">
-      <h2 className="title">{props.title}</h2>
-      <img className="restaurantPic" src={props.picture} />
-      <h4 className="summary">{props.summary}</h4>
+    <div className="card" key={restaurant.title}>
+      <h2 className="title">{restaurant.title}</h2>
+      <img className="restaurantPic" src={restaurant.image_url} />
+      <h4 className="summary">{restaurant.description}</h4>
     </div>
   );
 };
