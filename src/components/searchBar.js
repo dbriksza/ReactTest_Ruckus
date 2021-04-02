@@ -13,7 +13,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => (
       placeholder="Search restaurants"
       name="s"
     />
-    <button type="submit">Search</button>
+    <button>Search</button>
   </form>
 );
 
