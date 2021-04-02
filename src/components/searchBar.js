@@ -13,7 +13,7 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => (
       placeholder="Search restaurants"
       name="s"
     />
-    <button>Search</button>
+    <button onClick={(e) => e.preventDefault()}>Search</button>
   </form>
 );
 
