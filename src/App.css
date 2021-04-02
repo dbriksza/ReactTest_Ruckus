@@ -40,7 +40,7 @@
 .card {
   background-color: coral;
   border-radius: 13px;
-  width: 400px;
+  width: 250px;
 }
 
 .list {
@@ -59,7 +59,7 @@
 .resPage {
   background-color: antiquewhite;
   border-radius: 13px;
-  width: 400px;
+  width: 80%;
   padding: 20px;
 }
 
