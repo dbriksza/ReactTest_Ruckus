@@ -3,6 +3,8 @@ import axios from "axios";
 
 import RestaurantCard from "./restaurantCard";
 
+import SearchBar from "./searchBar";
+
 const RestaurantList = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [ready, setReady] = useState(false);
@@ -17,6 +19,22 @@ const RestaurantList = () => {
     10000018,
     10000019,
   ];
+
+  const filterRestaurants = (restaurants, query) => {
+    if (!query) {
+      return restaurants;
+    }
+
+    return restaurants.filter((restaurants) => {
+      const restaurantsName = restaurants.name.toLowerCase();
+      return restaurantsName.includes(query.toLowerCase());
+    });
+  };
+
+  const query = "";
+  const [searchQuery, setSearchQuery] = useState(query || "");
+  const filteredRestaurants = filterRestaurants(restaurants, searchQuery);
+
   useEffect(() => {
     idArr.forEach((id) =>
       axios
@@ -42,24 +60,28 @@ const RestaurantList = () => {
   }
   return (
     <div className="list">
-      {ready &&
-        restaurants.map(
-          (restaurant) => (
-            console.log(restaurant),
-            (
-              <div>
-                <RestaurantCard
-                  title={restaurant.name}
-                  phone_numbers={restaurant.phone_numbers}
-                  location={restaurant.location}
-                  menu={restaurant.menu_url}
-                  description={restaurant.cuisines}
-                  url={restaurant.url}
-                />
-              </div>
+      <h2 className="listTitle">An Arbitrary List of Restaurants</h2>
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <div className="restaurants">
+        {ready &&
+          filteredRestaurants.map(
+            (restaurant) => (
+              console.log(restaurant),
+              (
+                <div>
+                  <RestaurantCard
+                    title={restaurant.name}
+                    phone_numbers={restaurant.phone_numbers}
+                    location={restaurant.location}
+                    menu={restaurant.menu_url}
+                    description={restaurant.cuisines}
+                    url={restaurant.url}
+                  />
+                </div>
+              )
             )
-          )
-        )}
+          )}
+      </div>
     </div>
   );
 };
