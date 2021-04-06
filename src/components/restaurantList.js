@@ -8,7 +8,7 @@ import SearchBar from "./searchBar";
 const RestaurantList = () => {
   //states for populating restaurants list
   const [restaurants, setRestaurants] = useState([]);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(false); //checkout other branches for other examples of state management
   const idArr = [
     //list of random (working) restaurant id's since I couldn't get other endpoints working
     10000011,
