@@ -1,26 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { connect } from "react-redux";
 import RestaurantCard from "./restaurantCard";
+
+import { fetchItems } from "./actions/actions";
 
 import SearchBar from "./searchBar";
 
-const RestaurantList = () => {
+const RestaurantList = (props) => {
   //states for populating restaurants list
-  const [restaurants, setRestaurants] = useState([]);
-  const [ready, setReady] = useState(false);
-  const idArr = [
-    //list of random (working) restaurant id's since I couldn't get other endpoints working
-    10000011,
-    10000012,
-    10000013,
-    10000014,
-    10000015,
-    10000016,
-    10000017,
-    10000018,
-    10000019,
-  ];
+  // const [restaurants, setRestaurants] = useState([]);
+
+  // setRestaurants(props.items);
+
+  useEffect(() => {
+    props.fetchItems();
+    console.log(props.items);
+  }, []);
+
   const [tags, setTags] = useState(false);
 
   const filterRestaurants = (restaurants, query) => {
@@ -44,34 +41,13 @@ const RestaurantList = () => {
   //states for handling search
   const query = "";
   const [searchQuery, setSearchQuery] = useState(query || "");
-  const filteredRestaurants = filterRestaurants(restaurants, searchQuery);
+  const filteredRestaurants = filterRestaurants(props.items, searchQuery);
 
   const onValueChange = () => {
     setTags(!tags);
   };
 
-  useEffect(() => {
-    idArr.forEach((id) =>
-      axios
-        .get(`https://developers.zomato.com/api/v2.1/restaurant?res_id=${id}`, {
-          //no documentation could only get this one edpoint working
-          headers: {
-            "user-key": "7749b19667964b87a3efc739e254ada2",
-          },
-        })
-        .then(
-          (res) => (
-            setRestaurants((restaurants) => [...restaurants, res.data]),
-            console.log(restaurants)
-          )
-        )
-        .catch((error) => {
-          console.error(error);
-        })
-    );
-    setReady(true);
-  }, []);
-  if (restaurants < 9) {
+  if (props.isFetching) {
     return <div>Loading restaurant information...</div>;
   }
   return (
@@ -88,7 +64,8 @@ const RestaurantList = () => {
         <p>include tags</p>
       </div>
       <div className="restaurants">
-        {ready &&
+        {props.error && <p>{props.error}</p>}
+        {filteredRestaurants &&
           filteredRestaurants.map(
             (restaurant) => (
               console.log(restaurant),
@@ -111,4 +88,14 @@ const RestaurantList = () => {
   );
 };
 
-export default RestaurantList;
+const mapStateToProps = (state) => {
+  return {
+    items: state.items,
+    isFetching: state.isFetching,
+    error: state.error,
+  };
+};
+
+export default connect(mapStateToProps, { fetchItems })(RestaurantList);
+
+// export default RestaurantList;
