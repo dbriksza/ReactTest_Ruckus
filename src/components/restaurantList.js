@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 
 import RestaurantCard from "./restaurantCard";
 
 import SearchBar from "./searchBar";
 
+import RestaurantContext from "./context/restaurantContext";
+
 const RestaurantList = () => {
   //states for populating restaurants list
-  const [restaurants, setRestaurants] = useState([]);
+  const { restaurants, setRestaurants } = useContext(RestaurantContext);
   const [ready, setReady] = useState(false);
   const idArr = [
     //list of random (working) restaurant id's since I couldn't get other endpoints working
